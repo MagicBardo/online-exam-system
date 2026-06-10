@@ -1,0 +1,78 @@
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .login-box {
+        padding: 25px;
+        margin: 20px auto;
+    }
+    
+    .exam-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .timer-section {
+        text-align: center;
+    }
+    
+    .exam-content {
+        padding: 15px;
+    }
+    
+    .question {
+        padding: 15px;
+    }
+    
+    .exam-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+    
+    .modal-content {
+        margin: 20px;
+        max-width: calc(100% - 40px);
+    }
+    
+    .score-number {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-box {
+        padding: 20px;
+    }
+    
+    .logo h1 {
+        font-size: 24px;
+    }
+    
+    .exam-header {
+        padding: 20px;
+    }
+    
+    .timer {
+        font-size: 24px;
+        padding: 12px 15px;
+    }
+    
+    .question-text {
+        font-size: 16px;
+    }
+    
+    .score-number {
+        font-size: 32px;
+    }
+    
+    .score-percent {
+        font-size: 18px;
+    }
+}

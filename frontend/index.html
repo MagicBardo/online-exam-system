@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prüfungstool - Anmeldung</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/responsive.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <div class="logo">
+                <h1>Prüfungstool</h1>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        placeholder="Dein Name" 
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="class">Klasse:</label>
+                    <input 
+                        type="text" 
+                        id="class" 
+                        name="class" 
+                        placeholder="z.B. 11a" 
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="code">Prüfungscode:</label>
+                    <input 
+                        type="text" 
+                        id="code" 
+                        name="code" 
+                        placeholder="Von Lehrer mitgeteilt" 
+                        required
+                    >
+                </div>
+                
+                <button type="submit" class="btn-primary">Zur Prüfung</button>
+            </form>
+            
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+        </div>
+    </div>
+    
+    <script src="assets/script.js"></script>
+</body>
+</html>

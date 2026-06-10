@@ -1,0 +1,29 @@
+TITLE: Mathematik Klasse 11 
+CODE: 5f3eG 
+TIME: 1200 
+
+QUESTION (TYPE=multiple-choice): 
+
+    Was ist $2 + 2$? 
+    
+    OPTIONS: 
+    - $2$ 
+    - $4$* 
+    - $3$ 
+    - $6$ 
+    
+QUESTION (TYPE=multiple-choice): 
+
+    Mit welcher Formel kann man die Nullstellen einer quadratischen Funktion bestimmen? 
+    
+    OPTIONS: 
+    - $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$*
+    - $x = x^2$ 
+    - $y = x^2$ 
+    - $a = x - b^2 + c - \sqrt{b^2-4ac}$ 
+
+QUESTION (TYPE=number):
+
+    Welchen Wert hat Pi auf the dritte Nachkommestelle genau ohne Rundung?
+
+    ANSWER: 3.141
