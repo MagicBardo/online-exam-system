@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prüfungstool - Prüfungsbereich</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
 </head>
 <body>
-    <h3>Hello World</h3>
+    <h1 id="exam-title">Prüfung1</h1>
+    <div class="timer" id="timer-bar"></div>
+    <p class="timer" id="timer-text">00:00</p>
+    <div class="exam-snippet"></div>
+    <button class="btn-primary" id="handin">Abgabe</button>
+
+    <script src="script.js"></script>
+    <script type="module" src="timer.js"></script>
 </body>
 </html>
