@@ -7,10 +7,10 @@
             "type": "multiple-choice",
             "question": "Wie lautet das Ohmsche Gesetz?",
             "options": [
-                "\\(R \\equal I \\over U\\)",
-                "\\(R \\equal U \\over I\\)",
-                "\\(P \\equal I \\over U\\)",
-                "\\(R \\equal I \\times U\\)"
+                "\\(R = {I \\div U}\\)",
+                "\\(R = {U \\div I}\\)",
+                "\\(P = {I \\div U}\\)",
+                "\\(R = {I \\times U}\\)"
             ],
             "correct": 1
         },

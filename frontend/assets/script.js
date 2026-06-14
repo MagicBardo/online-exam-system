@@ -11,7 +11,7 @@ const inputCode = document.getElementById('code');
 
 // Exam vars
 const examTitle = document.getElementById('exam-title');
-const examSippetDiv = document.getElementById('exam-snippet-div');
+const examSnippetDiv = document.querySelector('.exam-content');
 const examHandInBtn = document.getElementById('handin-btn');
 
 // Functions
@@ -87,6 +87,49 @@ function setHeadline(exam) {
 }
 
 
+function initQuestion(question, counter) {
+    let html = `
+        <div class="question">
+            <p class="question-text">${question.question}</p>
+    `;
+
+    if (question.type === "multiple-choice") {
+        html += `<div class="options">`;
+
+        for (let i = 0; i < question.options.length; i++) {
+            html += `
+                <input
+                    type="radio"
+                    id="q${counter}o${i}"
+                    name="question${counter}"
+                >
+                <label for="q${counter}o${i}">
+                    ${question.options[i]}
+                </label>
+                <br>
+            `;
+        }
+
+        html += `</div>`;
+    }
+    else if (question.type === "number") {
+        html += `
+            <label for="number${counter}">
+                Answer:
+            </label>
+
+            <input
+                type="number"
+                id="number${counter}"
+                name="number${counter}"
+            >
+        `;
+    }
+    html += `</div>`;
+
+    examSnippetDiv.insertAdjacentHTML("beforeend", html);
+}
+
 // Main Script
 if (examList) examList.addEventListener("click", leadToSpecificLogin);
 
@@ -97,6 +140,12 @@ if (examTitle) {
 
     if (examData) {
         setHeadline(examData);
+
+        const questions = examData.questions;
+
+        for (let i = 0; i < questions.length; i++) {
+            initQuestion(questions[i], i);
+        }
     }
 }
 
