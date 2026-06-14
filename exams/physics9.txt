@@ -1,0 +1,19 @@
+TITLE: Physik Klasse 9
+CODE: 4e51e
+TIME: 3600
+
+QUESTION (TYPE=multiple-choice):
+
+    Wie lautet das Ohmsche Gesetz?
+
+    OPTIONS:
+    - $R \equal I \over U$
+    - $R \equal U \over I$*
+    - $P \equal I \over U$
+    - $R \equal I \times U$
+
+QUESTION (TYPE=number):
+
+    Wie schnell ist Licht im Vakuum in $m \over s$?
+
+    ANSWER: 299792458

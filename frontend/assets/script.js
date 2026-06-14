@@ -1,3 +1,8 @@
+EXAM_DATA_BASE_PATH = "../backend/JSON/";
+
+// Home vars
+const examList = document.getElementById("examList");
+
 // Login vars
 const loginForm = document.getElementById('loginForm');
 const inputName = document.getElementById('name');
@@ -10,6 +15,14 @@ const examSippetDiv = document.getElementById('exam-snippet-div');
 const examHandInBtn = document.getElementById('handin-btn');
 
 // Functions
+function leadToSpecificLogin (e) {
+    const card = e.target.closest(".exam-card");
+    if (!card) return;
+
+    const exam = card.dataset.exam;
+    window.location.href = `frontend/login.html?exam=${exam}`;
+}
+
 async function readExamData(path) {
     const response = await fetch(path);
 
@@ -25,7 +38,7 @@ function checkCodeCorrectness(enteredCode, exam) {
 }
 
 function saveExamData(exam) {
-    localStorage.setItem("examData", JSON.stringify(exam));
+    sessionStorage.setItem("examData", JSON.stringify(exam));
 }
 
 function openExamPage() {
@@ -37,8 +50,13 @@ async function handleLogin(event) {
 
     const enteredCode = inputCode.value;
 
+    const params = new URLSearchParams(window.location.search);
+    const examName = params.get("exam");
+
+    const path = `${EXAM_DATA_BASE_PATH}${examName}.json`;
+
     try {
-        const exam = await readExamData();
+        const exam = await readExamData(path);
 
         if (checkCodeCorrectness(enteredCode, exam)) {
             saveExamData(exam);
@@ -65,15 +83,20 @@ function loadExam() {
 }
 
 function setHeadline(exam) {
-    document.getElementById("examTitle").textContent = exam.title;
+    examTitle.textContent = exam.title;
 }
 
 
 // Main Script
-loginForm.addEventListener('submit', handleLogin);
+if (examList) examList.addEventListener("click", leadToSpecificLogin);
 
-const exam = loadExam();
+if (loginForm) loginForm.addEventListener('submit', handleLogin);
 
-if (exam) {
-    setHeadline(exam);
+if (examTitle) {
+    const examData = loadExam();
+
+    if (examData) {
+        setHeadline(examData);
+    }
 }
+

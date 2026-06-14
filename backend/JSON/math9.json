@@ -1,6 +1,6 @@
 {
-    "title": "Mathematik Klasse 11",
-    "code": "5f3eG",
+    "title": "Mathematik Klasse 9",
+    "code": "5g3f12",
     "time": 1200,
     "questions": [
         {
@@ -24,6 +24,11 @@
                 "\\(a = x - b^2 + c - \\sqrt{b^2-4ac}\\)"
             ],
             "correct": 0
+        },
+        {
+            "type": "number",
+            "question": "Wie gross ist \\(\\pi\\) auf die dritte Nachkommestelle genau?",
+            "answer": 3.142
         }
     ]
 }
