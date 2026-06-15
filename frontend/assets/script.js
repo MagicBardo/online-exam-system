@@ -48,7 +48,18 @@ function openExamPage() {
 async function handleLogin(event) {
     event.preventDefault();
 
+    const enteredName = inputName.value;
+    const enteredClass = inputClass.value;
     const enteredCode = inputCode.value;
+
+    sessionStorage.setItem(
+        "studentData",
+        JSON.stringify({
+            name: enteredName,
+            class: enteredClass,
+            startTime: Date.now()
+        })
+    );
 
     const params = new URLSearchParams(window.location.search);
     const examName = params.get("exam");
@@ -130,8 +141,100 @@ function initQuestion(question, counter) {
     examSnippetDiv.insertAdjacentHTML("beforeend", html);
 }
 
+function readQuestionInput(question, counter) {
+    if (question.type === "multiple-choice") {
+        const checked = document.querySelector(`input[name=question${counter}]:checked`);
+        const answer = checked ? checked.id : null; 
+    }
+    else if (question.type === "number") {
+        const answer = document.getElementById(`number${counter}`).value;
+    }
+
+    return answer;
+}
+
+function loadStudent() {
+    const student = JSON.parse(sessionStorage.getItem("studentData"));
+
+    return student;
+
+}
+
+function getSubmission(examData) {
+        const questions = examData.questions;
+        let submissions = [];
+
+        for (let i = 0; i < questions.length; i++) {
+            const answer = readQuestionInput(questions[i], i);
+            submissions.push(answer);
+        }
+
+        return submissions;
+}
+
+function calcDuration(startStr, endStr) {
+
+    const start = parseDate(startStr);
+    const end = parseDate(endStr);
+
+    if (!start || !end) {
+        throw new Error("Invalid date format. Please use a format like '2024-01-31T12:30:00'.");
+    }
+
+    if (end < start) {
+        throw new Error("End date must be after start date.");
+    }
+
+    // Difference in milliseconds
+    const diffMs = end - start;
+
+    // Convert to components
+    const seconds = Math.floor(diffMs / 1000) % 60;
+    const minutes = Math.floor(diffMs / (1000 * 60)) % 60;
+    const hours = Math.floor(diffMs / (1000 * 60 * 60)) % 24;
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    return `${days}D:${hours}H:${minutes}M:${seconds}S`
+}
+
+function uploadData(submission) {
+    await fetch("/submit", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(submission)
+    });
+}
+
+function handIn() {
+    const examData = loadExam();
+    const studentData = loadStudent();
+    const answers = getSubmission(examData);
+
+    const startedDate = new Date(studentData.startTime);
+    const startedReadable = startedDate.toLocaleString();
+    const finishedTime = Date.now();
+    const finishedDate = new Date(finisheTime);
+    const finishedReadable = finishedDate.toLocaleString();
+
+    const duration = calcDuration();
+    
+    const upload = {
+        "name": studentData.name,
+        "class": studentData.class,
+        "exam": examData.title,
+        "startedTime": startedReadable,
+        "finishedTime": finishedReadable,
+        "duration": duration,
+        "answers": answers
+    }
+
+    uploadData(upload);
+}
+
 // Main Script
-if (examList) examList.addEventListener("click", leadToSpecificLogin);
+if (examList) examList.addEventListener('click', leadToSpecificLogin);
 
 if (loginForm) loginForm.addEventListener('submit', handleLogin);
 
@@ -148,4 +251,6 @@ if (examTitle) {
         }
     }
 }
+
+if (examHandInBtn) examHandInBtn.addEventListener('click', handIn);
 
