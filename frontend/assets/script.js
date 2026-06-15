@@ -211,7 +211,7 @@ async function handIn() {
     const finishedDate = new Date(finishedTime);
     const finishedReadable = finishedDate.toLocaleString();
 
-    const duration =  Math.floor((finishedTime - examData.startedTime) / 1000);
+    const duration =  Math.floor((finishedTime - studentData.startedTime) / 1000);
     
     const upload = {
         name: studentData.name,
