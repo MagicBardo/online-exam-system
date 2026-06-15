@@ -146,10 +146,10 @@ function readQuestionInput(question, counter) {
 
     if (question.type === "multiple-choice") {
         const checked = document.querySelector(`input[name=question${counter}]:checked`);
-        const answer = checked ? checked.id : null; 
+        answer = checked ? checked.id : null;
     }
     else if (question.type === "number") {
-        const answer = document.getElementById(`number${counter}`).value;
+        answer = document.getElementById(`number${counter}`).value;
     }
 
     return answer;
@@ -175,16 +175,27 @@ function getSubmission(examData) {
 }
 
 async function uploadData(submission) {
-    await fetch("/submit", {
+    const res = await fetch("http://127.0.0.1:5000/submit", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(submission)
     });
+
+    const data = await res.json(); // <-- IMPORTANT
+
+    console.log("SERVER RESPONSE:", data);
+
+    if (!res.ok) {
+        alert(data.error || "Unknown server error");
+        return;
+    }
+
+    return data;
 }
 
-function handIn() {
+async function handIn() {
     const examData = loadExam();
     const studentData = loadStudent();
     const answers = getSubmission(examData);
@@ -195,20 +206,19 @@ function handIn() {
     const finishedDate = new Date(finishedTime);
     const finishedReadable = finishedDate.toLocaleString();
 
-    const duration = finishedTime - studentData.startTime;
-    const durationText = Math.floor(duration / 1000); // in seconds
+    const duration =  Math.floor((finishedTime - examData.startedTime) / 1000);
     
     const upload = {
-        "name": studentData.name,
-        "class": studentData.class,
-        "exam": examData.title,
-        "startedTime": startedReadable,
-        "finishedTime": finishedReadable,
-        "duration": duration,
-        "answers": answers
+        name: studentData.name,
+        class: studentData.class,
+        exam: examData.title,
+        startedTime: startedReadable,
+        finishedTime: finishedReadable,
+        duration: duration,
+        answers: answers
     }
 
-    uploadData(upload);
+    await uploadData(upload);
 }
 
 // Main Script

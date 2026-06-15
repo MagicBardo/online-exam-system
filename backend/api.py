@@ -1,12 +1,21 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import json
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 def saveData(data):
-    filename = f"{data['name']}_{data['finishedTime']}.json"
-    with open(f'backend/results/{data['exam']}/{filename}.json', 'w', encoding='utf-8') as f:
+    folder = f"backend/results/{data['exam']}"
+    os.makedirs(folder, exist_ok=True)
+
+    time = data["finishedTime"].replace(":", "-").replace(",", "")
+
+    filename = f"{data['name']}_{time}.json"
+    path = os.path.join(folder, filename)
+
+    with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
 @app.route("/submit", methods=["POST"])
@@ -21,9 +30,9 @@ def submit():
     
     # check required fileds
     required = [
-    "student",
+    "name",
+    "class",
     "exam",
-    "finishTime",
     "answers"
     ]
 
@@ -42,15 +51,6 @@ def submit():
 
     if not isinstance(data["name"], str):
         return {"error": "Name must be string"}, 400
-    
-    # check if exam exists
-    exam = data["exam"]
-    path = f"JSON/{exam}.json"
-
-    if not os.path.exists(path):
-        return {
-            "error": "Exam does not exist"
-    }, 400
 
     # save
     saveData(data)
