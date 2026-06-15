@@ -142,6 +142,8 @@ function initQuestion(question, counter) {
 }
 
 function readQuestionInput(question, counter) {
+    let answer;
+
     if (question.type === "multiple-choice") {
         const checked = document.querySelector(`input[name=question${counter}]:checked`);
         const answer = checked ? checked.id : null; 
@@ -172,32 +174,7 @@ function getSubmission(examData) {
         return submissions;
 }
 
-function calcDuration(startStr, endStr) {
-
-    const start = parseDate(startStr);
-    const end = parseDate(endStr);
-
-    if (!start || !end) {
-        throw new Error("Invalid date format. Please use a format like '2024-01-31T12:30:00'.");
-    }
-
-    if (end < start) {
-        throw new Error("End date must be after start date.");
-    }
-
-    // Difference in milliseconds
-    const diffMs = end - start;
-
-    // Convert to components
-    const seconds = Math.floor(diffMs / 1000) % 60;
-    const minutes = Math.floor(diffMs / (1000 * 60)) % 60;
-    const hours = Math.floor(diffMs / (1000 * 60 * 60)) % 24;
-    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-    return `${days}D:${hours}H:${minutes}M:${seconds}S`
-}
-
-function uploadData(submission) {
+async function uploadData(submission) {
     await fetch("/submit", {
         method: "POST",
         headers: {
@@ -215,10 +192,11 @@ function handIn() {
     const startedDate = new Date(studentData.startTime);
     const startedReadable = startedDate.toLocaleString();
     const finishedTime = Date.now();
-    const finishedDate = new Date(finisheTime);
+    const finishedDate = new Date(finishedTime);
     const finishedReadable = finishedDate.toLocaleString();
 
-    const duration = calcDuration();
+    const duration = finishedTime - studentData.startTime;
+    const durationText = Math.floor(duration / 1000); // in seconds
     
     const upload = {
         "name": studentData.name,
