@@ -1,4 +1,6 @@
-EXAM_DATA_BASE_PATH = "../backend/JSON/";
+import { stopTimer } from "./timer.js";
+
+const EXAM_DATA_BASE_PATH = "../backend/JSON/";
 
 // Home vars
 const examList = document.getElementById("examList");
@@ -42,7 +44,7 @@ function saveExamData(exam) {
 }
 
 function openExamPage() {
-    window.location.href = "exam.html";
+    window.location.href = "/frontend/exam.html";
 }
 
 async function handleLogin(event) {
@@ -86,7 +88,7 @@ function loadExam() {
     const exam = JSON.parse(sessionStorage.getItem("examData"));
 
     if (!exam) {
-        window.location.href = "login.html";
+        window.location.href = "/frontend/login.html";
         return null;
     }
 
@@ -196,6 +198,9 @@ async function uploadData(submission) {
 }
 
 async function handIn() {
+    stopTimer();
+    window.location.href = "/";
+
     const examData = loadExam();
     const studentData = loadStudent();
     const answers = getSubmission(examData);
@@ -241,4 +246,6 @@ if (examTitle) {
 }
 
 if (examHandInBtn) examHandInBtn.addEventListener('click', handIn);
+
+window.handIn = handIn;
 

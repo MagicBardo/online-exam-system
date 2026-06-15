@@ -1,3 +1,7 @@
+let timerInterval = null;
+let currentTimeLeft = 0;
+let currentTotalTime = 0;
+
 function loadExam() {
     return JSON.parse(sessionStorage.getItem("examData"));
 }
@@ -22,30 +26,35 @@ function updateTimerDisplay(timeLeft, totalTime) {
 function handInExam() {
     alert("Time is up!");
 
-    // Later:
-    // submitExam();
+    window.handIn();
 
-    window.location.href = "index.html";
+    window.location.href = "/";
 }
 
-function startTimer(totalTime) {
-    let timeLeft = totalTime;
+export function startTimer(totalTime) {
+    currentTimeLeft = totalTime;
+    currentTotalTime = totalTime;
 
-    updateTimerDisplay(timeLeft, totalTime);
+    updateTimerDisplay(currentTimeLeft, currentTotalTime);
 
-    const timer = setInterval(() => {
-        timeLeft--;
+    timerInterval = setInterval(() => {
+        currentTimeLeft--;
 
-        updateTimerDisplay(timeLeft, totalTime);
+        updateTimerDisplay(currentTimeLeft, currentTotalTime);
 
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-
-            updateTimerDisplay(0, totalTime);
-
+        if (currentTimeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
             handInExam();
         }
     }, 1000);
+}
+
+export function stopTimer() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
