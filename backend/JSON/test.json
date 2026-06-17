@@ -1,0 +1,23 @@
+{
+    "title": "TestExam",
+    "code": "12345",
+    "time": 100,
+    "questions": [
+        {
+            "type": "number",
+            "question": "Welchen Wert hat \\(x\\) mit \\(x=2\\)",
+            "answer": 2.0
+        },
+        {
+            "type": "multiple-choice",
+            "question": "Welche Zahl ist gr\u00f6\u00dfer \\(5\\)?",
+            "options": [
+                "\\(3\\)",
+                "\\(2\\)",
+                "\\(7\\)",
+                "\\(1\\)"
+            ],
+            "correct": 2
+        }
+    ]
+}

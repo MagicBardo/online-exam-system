@@ -1,0 +1,19 @@
+TITLE: TestExam
+CODE: 12345
+TIME: 100
+
+QUESTION (TYPE=number):
+
+    Welchen Wert hat $x$ mit $x=2$
+
+    ANSWER: 2
+
+QUESTION (TYPE=multiple-choice):
+
+    Welche Zahl ist größer $5$?
+
+    OPTIONS: 
+    - $3$
+    - $2$
+    - $7$*
+    - $1$
