@@ -1,0 +1,34 @@
+{
+    "title": "Mathematik9",
+    "code": "5g3f12",
+    "time": 1200,
+    "questions": [
+        {
+            "type": "multiple-choice",
+            "question": "Was ist \\(2 + 2\\)?",
+            "options": [
+                "\\(2\\)",
+                "\\(4\\)",
+                "\\(3\\)",
+                "\\(6\\)"
+            ],
+            "correct": 1
+        },
+        {
+            "type": "multiple-choice",
+            "question": "Mit welcher Formel kann man die Nullstellen einer quadratischen Funktion bestimmen?",
+            "options": [
+                "\\(x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}\\)",
+                "\\(x = x^2\\)",
+                "\\(y = x^2\\)",
+                "\\(a = x - b^2 + c - \\sqrt{b^2-4ac}\\)"
+            ],
+            "correct": 0
+        },
+        {
+            "type": "number",
+            "question": "Wie gross ist \\(\\pi\\) auf die dritte Nachkommestelle genau?",
+            "answer": 3.142
+        }
+    ]
+}

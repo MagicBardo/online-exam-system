@@ -1,6 +1,11 @@
+// Imports
 import { stopTimer } from "./timer.js";
 
+// Paths
 const EXAM_DATA_BASE_PATH = "../backend/JSON/";
+const HOME_PAGE = "/index.html";
+const LOGIN_PAGE = "/frontend/login.html";
+const EXAM_PAGE = "/frontend/exam.html";
 
 // Home vars
 const examList = document.getElementById("examList");
@@ -22,7 +27,7 @@ function leadToSpecificLogin (e) {
     if (!card) return;
 
     const exam = card.dataset.exam;
-    window.location.href = `frontend/login.html?exam=${exam}`;
+    window.location.href = `${LOGIN_PAGE}?exam=${exam}`;
 }
 
 async function readExamData(path) {
@@ -44,15 +49,15 @@ function saveExamData(exam) {
 }
 
 function openExamPage() {
-    window.location.href = "/frontend/exam.html";
+    window.location.href = EXAM_PAGE;
 }
 
 async function handleLogin(event) {
     event.preventDefault();
 
-    const enteredName = inputName.value;
-    const enteredClass = inputClass.value;
-    const enteredCode = inputCode.value;
+    const enteredName = inputName.value.trim();
+    const enteredClass = inputClass.value.trim();
+    const enteredCode = inputCode.value.trim();
 
     sessionStorage.setItem(
         "studentData",
@@ -88,7 +93,7 @@ function loadExam() {
     const exam = JSON.parse(sessionStorage.getItem("examData"));
 
     if (!exam) {
-        window.location.href = "/frontend/login.html";
+        window.location.href = LOGIN_PAGE;
         return null;
     }
 
@@ -185,7 +190,7 @@ async function uploadData(submission) {
         body: JSON.stringify(submission)
     });
 
-    const data = await res.json(); // <-- IMPORTANT
+    const data = await res.json();
 
     console.log("SERVER RESPONSE:", data);
 
@@ -198,8 +203,6 @@ async function uploadData(submission) {
 }
 
 async function handIn() {
-    stopTimer();
-    window.location.href = "/";
 
     const examData = loadExam();
     const studentData = loadStudent();
@@ -224,6 +227,9 @@ async function handIn() {
     }
 
     await uploadData(upload);
+
+    stopTimer();
+    window.location.href = HOME_PAGE;
 }
 
 // Main Script

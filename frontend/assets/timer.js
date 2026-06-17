@@ -1,3 +1,5 @@
+const HOME_PAGE = "/index.html";
+
 let timerInterval = null;
 let currentTimeLeft = 0;
 let currentTotalTime = 0;
@@ -28,7 +30,7 @@ function handInExam() {
 
     window.handIn();
 
-    window.location.href = "/";
+    window.location.href = "../index.html";
 }
 
 export function startTimer(totalTime) {
